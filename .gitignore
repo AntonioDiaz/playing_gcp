@@ -1,5 +1,7 @@
-.bin
+bin
 .idea
 .history
-.target
+target
 gradle
+.gradle
+build
