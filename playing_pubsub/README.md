@@ -1,5 +1,9 @@
 # Cloud Run Pub/Sub Tutorial Sample
 
+- [Dependencies](#dependencies)
+- [My notes](#my-notes)
+- [GCP - Cloud Run & Pub/Sub](#gcp---cloud-run--pubsub)
+
 This sample shows how to create a service that processes Pub/Sub messages.
 
 Use it with the [Cloud Pub/Sub with Cloud Run tutorial](http://cloud.google.com/run/docs/tutorials/pubsub).
@@ -47,7 +51,7 @@ gs://my-bucket-event-test --topic=my-topic
 
 ````
 
---
+
 ````json
 {
     "kind": "storage#object",
@@ -100,7 +104,7 @@ gcloud auth configure-docker
 mvn compile jib:build -D image=gcr.io/fichaje-kt/pubsub
 
 
-gcloud run deploy pubsub-tutorial --image gcr.io/fichaje-kt/pubsub  --no-allow-unauthenticated
+gcloud run deploy pubsub-tutorial --image gcr.io/fichaje-kt/pubsub ï¿½--no-allow-unauthenticated
 
 
 gcloud iam service-accounts create cloud-run-pubsub-invoker \
@@ -126,3 +130,17 @@ gcloud pubsub subscriptions create myRunSubscription --topic myRunTopic \
 
 
 gcloud pubsub subscriptions delete myRunSubscription
+
+```json
+{
+    "message": {
+        "data": "string",
+        "attributes": {
+            "string": "string"
+        },
+        "messageId": "string",
+        "publishTime": "string",
+        "orderingKey": "string"
+    }
+}
+```
