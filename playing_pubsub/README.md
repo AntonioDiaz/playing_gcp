@@ -28,30 +28,48 @@ For more details on how to work with this sample read the [Google Cloud Run Java
 Cloud Run Image processing:  https://cloud.google.com/run/docs/tutorials/image-processing
 
 --
-````shell
+* create topic
+```shell
 gcloud pubsub topics create my-topic
+```
 
+* Create subscription for the topic
+```shell
 gcloud pubsub subscriptions create my-sub-event-test --topic my-topic \
 --ack-deadline=60
+```
 
+* List all topics
+```shell
 gcloud pubsub topics list
+```
 
+* List all subscriptions
+```shell
 gcloud pubsub subscriptions list
+```
 
+* Send message to the topic
+```shell
 gcloud pubsub topics publish my-topic --message hello
-
 gcloud pubsub topics publish my-topic --message goodbye
+```
 
+* Read messages through a subscription
+```shell  
 gcloud pubsub subscriptions pull --auto-ack --limit=2 my-sub
+```
 
 gcloud pubsub subscriptions ack my-sub --ack-ids ACK_ID
 
+* Create a topic associate to a bucket
+```shell
 gcloud storage buckets notifications create \
-gs://my-bucket-event-test --topic=my-topic
+  gs://my-bucket-event-test --topic=my-topic
+```
 
-````
 
-
+* Example of an event message of create a file on a bucket
 ````json
 {
     "kind": "storage#object",
@@ -94,42 +112,53 @@ https://cloud.google.com/run/docs/tutorials/pubsub#run_pubsub_dockerfile-java
 
 https://cloud.google.com/run/docs/tutorials/pubsub
 
+* Create topic
+```shell
 gcloud pubsub topics create myRunTopic
+```
+
 
 Download code: https://github.com/GoogleCloudPlatform/java-docs-samples/tree/main/run/pubsub
 
 Update pom.xml with the project name.
 
+```shell
 gcloud auth configure-docker
 mvn compile jib:build -D image=gcr.io/fichaje-kt/pubsub
+```
 
+```shell
+gcloud run deploy pubsub-tutorial --image gcr.io/fichaje-kt/pubsub \
+--no-allow-unauthenticated
+```
 
-gcloud run deploy pubsub-tutorial --image gcr.io/fichaje-kt/pubsub �--no-allow-unauthenticated
-
-
+```shell
 gcloud iam service-accounts create cloud-run-pubsub-invoker \
 --display-name "Cloud Run Pub/Sub Invoker"
+```
 
-
-
+```shell
 gcloud run services add-iam-policy-binding pubsub-tutorial \
 --member=serviceAccount:cloud-run-pubsub-invoker@fichaje-kt.iam.gserviceaccount.com \
 --role=roles/run.invoker
+```
 
-
+```shell
 gcloud projects add-iam-policy-binding fichaje-kt \
 --member=serviceAccount:service-747954516128@gcp-sa-pubsub.iam.gserviceaccount.com \
 --role=roles/iam.serviceAccountTokenCreator
+```shell
 
-
-
+```shell
 gcloud pubsub subscriptions create myRunSubscription --topic myRunTopic \
 --ack-deadline=600 \
 --push-endpoint=https://pubsub-tutorial-k3biuuszha-no.a.run.app/ \
 --push-auth-service-account=cloud-run-pubsub-invoker@fichaje-kt.iam.gserviceaccount.com
+```
 
-
+```shell
 gcloud pubsub subscriptions delete myRunSubscription
+```
 
 ```json
 {
