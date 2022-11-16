@@ -147,7 +147,7 @@ gcloud run services add-iam-policy-binding pubsub-tutorial \
 gcloud projects add-iam-policy-binding fichaje-kt \
 --member=serviceAccount:service-747954516128@gcp-sa-pubsub.iam.gserviceaccount.com \
 --role=roles/iam.serviceAccountTokenCreator
-```shell
+```
 
 ```shell
 gcloud pubsub subscriptions create myRunSubscription --topic myRunTopic \

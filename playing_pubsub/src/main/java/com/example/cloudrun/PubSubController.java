@@ -62,7 +62,7 @@ public class PubSubController {
   @GetMapping("/")
   String hello() {
     log.info("home......");
-    return "*Hello Pub/Sub example:  " + name + "!";
+    return "last test.....Hello Pub/Sub example:  " + name + "!";
   }
 }
 // [END run_pubsub_handler]
